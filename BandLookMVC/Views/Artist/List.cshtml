@@ -1,0 +1,155 @@
+﻿<main id="main">
+
+<section class="breadcumb-section">
+    <div class="tf-container">
+        <div class="row">
+            <div class="col-lg-12 center z-index1">
+                <h1 class="title">All Doctors</h1>
+                <ul class="breadcumb-list flex-five">
+                    <li>
+                        <a href="Home">Home</a>
+                    </li>
+                    <li>
+                        <span>Doctors</span>
+                    </li>
+                </ul>
+                <img class="bcrumb-ab" src="./assets/images/page/mask-bcrumb.png" alt="">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Widget archieve tour -->
+<section class="archieve-tour">
+<div class="tf-container">
+<form action="/Artist/List" class="tf-my-listing1 mb-37" id="filter-form">
+    <div class="row align-center">
+        <div class="col-md-8">
+            <div class="flex-three filter-tour-package">
+                <div class="nice-select" tabindex="0">
+                    <span class="current">Specialty</span>
+                    <ul class="list" id="job-list">
+                        <li data-value="" class="option">All</li>
+                        <li data-value="Viralogist" class="option">Viralogist</li>
+                        <li data-value="Surgeon" class="option">Surgeon</li>
+                        <li data-value="Pediatrician" class="option">Pediatrician</li>
+                        <li data-value="Dermatology" class="option">Dermatology</li>
+                        <li data-value="Gastroenterology" class="option">Gastroenterology</li>
+                        <li data-value="Endocrinology" class="option">Endocrinology</li>
+                    </ul>
+                </div>
+                <div class="nice-select" tabindex="0">
+                    <span class="current">Medical facility</span>
+                    <ul class="list" id="location-list">
+                        <li data-value="Tất cả" class="option">All</li>
+                        <li data-value="Hà Nội" class="option">Hà Nội</li>
+                        <li data-value="Đà Nẵng" class="option">Đà Nẵng</li>
+                        <li data-value="Hồ Chí Minh" class="option">Hồ Chí Minh</li>
+                    </ul>
+                </div>
+                <div class="nice-select" tabindex="0">
+                    <span class="current">Price</span>
+                    <ul class="list" id="salary-list">
+                        <li data-value="DESC" class="option">Default</li>
+                        <li data-value="asc" class="option">Ascending</li>
+                        <li data-value="desc" class="option">Descending</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="fullname" value="">
+    <input type="hidden" name="job" id="job-input" value="">
+    <input type="hidden" name="address" id="location-input" value="">
+    <input type="hidden" name="sortBy" id="salary-input" value="">
+</form>
+
+<script>
+document.querySelectorAll('#job-list .option').forEach(item => {
+    item.addEventListener('click', function() {
+        document.getElementById('job-input').value = this.getAttribute('data-value');
+        document.getElementById('filter-form').submit();
+    });
+});
+
+document.querySelectorAll('#location-list .option').forEach(item => {
+    item.addEventListener('click', function() {
+        document.getElementById('location-input').value = this.getAttribute('data-value');
+        document.getElementById('filter-form').submit();
+    });
+});
+
+document.querySelectorAll('#salary-list .option').forEach(item => {
+    item.addEventListener('click', function() {
+        document.getElementById('salary-input').value = this.getAttribute('data-value');
+        document.getElementById('filter-form').submit();
+    });
+});
+</script>
+
+<div class="row">
+    @for (int i = 0; i < Model.Artists.Count; i++)
+    {
+        <div class="col-sm-6 col-xl-3 mb-32">
+            <div class="tour-listing box-sd">
+                <a href="@Url.Action("Detail", "Artist", new { id = Model.Artists[i].Id })" class="tour-listing-image">
+                    <div class="badge-top flex-two">
+                        <span class="feature">Nổi bật</span>
+                    </div>
+                    <img src="@Model.Artists[i].Image" style="height: 24rem; object-fit: cover;" alt="Image Listing">
+                </a>
+                <div class="tour-listing-content">
+                    <span class="map">@Model.Artists[i].Job</span>
+                    <h3 class="title-tour-list">
+                        <a href="@Url.Action("Detail", "Artist", new { id = Model.Artists[i].Id })">
+                            @Model.Artists[i].Fullname
+                        </a>
+                    </h3>
+                    <div class="review">
+                        <span>@Model.Artists[i].Rating sao</span>
+                    </div>
+                    <div class="icon-box flex-three">
+                        <div class="icons flex-three">
+                            <span>@Model.Artists[i].Address</span>
+                        </div>
+                    </div>
+                    <div class="flex-two">
+                        <div class="price-box flex-three">
+                            <p> <span class="price-sale">@Model.Artists[i].Catxe VND</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row mt-20">
+    <div class="col-md-12">
+        <ul class="tf-pagination flex-five">
+            @if (Model.CurrentPage > 1)
+            {
+                <li>
+                    <a class="pages-link" href="@Url.Action("List", new { page = Model.CurrentPage - 1 })">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="pages-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a class="pages-link" href="@Url.Action("List", new { page = i })">@i</a>
+                </li>
+            }
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <li>
+                    <a class="pages-link" href="@Url.Action("List", new { page = Model.CurrentPage + 1 })">Next</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+</div>
+</section>
+
+</main>

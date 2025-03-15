@@ -1,0 +1,132 @@
+﻿@using BandLookMVC.Response
+
+@{
+    Layout = "_Layout1";
+}
+@{
+    string GetRoleName(int roleId)
+    {
+        return roleId switch
+        {
+            1 => "Doctor",
+            2 => "Member",
+            3 => "Admin",
+            _ => "Unknown"
+        };
+    }
+}
+<main id="main">
+    <section class="profile-dashboard">
+        <div class="inner-header mb-40">
+            <h3 class="title">Manage User</h3>
+            <p class="des">Manage user in the system</p>
+        </div>
+        <div class="my-booking-wrap">
+            <ul class="booking-table-title flex-three">
+                <li>
+                    <p>No</p>
+                </li>
+                <li>
+                    <p>Username</p>
+                </li>
+                <li>
+                    <p>Role</p>
+                </li>
+                <li>
+                    <p>Email</p>
+                </li>
+                <li>
+                    <p>Status</p>
+                </li>
+                <li>
+                    <p>Action</p>
+                </li>
+            </ul>
+            <ul class="booking-table-content mb-60">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <li class="flex-three">
+                        <div class="booking-list-table">
+                            <p class="date-gues">@(i + 1)</p>
+                        </div>
+
+                        <div class="booking-list-table">
+                            <p class="date-gues">@Model[i].user_name</p>
+                        </div>
+                        <div class="booking-list-table">
+                            <p class="date-gues">@GetRoleName(Model[i].role_id)</p>
+                        </div>
+                        <div class="booking-list-table">
+                            <p class="date-gues">@Model[i].email</p>
+                        </div>
+                        <div class="booking-list-table">
+                            @if (Model[i].status == 1)
+                            {
+                                <p class="status" style="background-color: forestgreen;">Active</p>
+                            }
+                            else if (Model[i].status == -1)
+                            {
+                                <p class="status" style="background-color: red;">Inactive</p>
+                            }
+                        </div>
+                        <div class="flex-five action-wrap">
+                            <div class="action flex-five">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-@i">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </button>
+                                <form action="/Admin/UpdateUser" method="POST">
+                                    <div class="modal fade" id="exampleModal-@i" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-@i" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel-@i">Edit</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Username:</label>
+                                                        <input type="text" value="@Model[i].user_name" name="username" class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Email:</label>
+                                                        <input type="text" name="email" value="@Model[i].email" class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Role:</label>
+                                                        <select class="form-control" id="recipient-name" name="roleId">
+                                                            <option value="1">Doctor</option>
+                                                            <option value="2">Member</option>
+                                                            <option value="3">Admin</option>
+                                                        </select>
+                                                    </div>
+                                                    <input hidden name="id" value="@Model[i].Id"/>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="action flex-five">
+                                <a href="@Url.Action("DeactivateUser", "Admin", new { id = @Model[i].Id, status = 1 })">
+<i class="fa-solid fa-square-check"></i>                                </a>
+                            </div>
+                            <div class="action flex-five">
+                                <a href="@Url.Action("DeactivateUser", "Admin", new { id = @Model[i].Id, status = -1 })">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </section>
+
+</main>
