@@ -7,9 +7,13 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString =
-            configuration.GetConnectionString("DBConnection") ??
-            throw new ArgumentNullException(nameof(configuration));
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DBConnection")
+                                ?? configuration.GetConnectionString("DBConnection");
+
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            throw new InvalidOperationException("Không tìm thấy connection string! Kiểm tra biến môi trường hoặc appsettings.json.");
+        }
         
 
         var applicationAssembly = typeof(DependencyInjection).GetTypeInfo().Assembly;
