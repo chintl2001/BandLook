@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,12 +13,6 @@
       <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
       <PackageReference Include="MySql.Data" Version="8.4.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="wwwroot\**\*">
-        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-      </Content>
     </ItemGroup>
 
     <ItemGroup>
