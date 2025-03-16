@@ -15,6 +15,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="wwwroot\**\*">
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>

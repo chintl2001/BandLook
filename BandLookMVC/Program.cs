@@ -30,8 +30,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseHttpsRedirection();
 
 app.UseRouting();
 app.UseSession();
