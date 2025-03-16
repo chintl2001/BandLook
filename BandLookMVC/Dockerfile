@@ -10,7 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["BandLookMVC.csproj", "BandLookMVC/"]
-RUN dotnet restore "./BandLookMVC/BandLookMVC.csproj"
+RUN dotnet restore "./BandLookMVC.csproj"
 COPY . .
 WORKDIR "/src/BandLookMVC"
 RUN dotnet build "./BandLookMVC.csproj" -c $BUILD_CONFIGURATION -o /app/build
