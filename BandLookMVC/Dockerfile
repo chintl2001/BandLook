@@ -3,17 +3,18 @@
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["BandLookMVC.csproj", "BandLookMVC/"]
-RUN dotnet restore "./BandLookMVC.csproj"
-COPY . .
+COPY ["/BandLookMVC.csproj", "BandLookMVC/"]
+RUN dotnet restore "BandLookMVC/BandLookMVC.csproj"
+COPY . ./BandLookMVC
 WORKDIR "/src/BandLookMVC"
-run ls -a
 RUN dotnet build "./BandLookMVC.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
