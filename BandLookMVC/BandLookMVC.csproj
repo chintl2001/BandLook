@@ -20,5 +20,9 @@
         <Link>.dockerignore</Link>
       </Content>
     </ItemGroup>
+    <ItemGroup>
+  <Content Include="wwwroot\**\*" CopyToPublishDirectory="PreserveNewest" />
+</ItemGroup>
+
 
 </Project>
