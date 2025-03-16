@@ -1,0 +1,1 @@
+﻿RUN dotnet restore "api.Identity/api.Identity/api.Identity.csproj"
