@@ -9,7 +9,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["BandLookMVC/BandLookMVC.csproj", "BandLookMVC/"]
+COPY ["BandLookMVC.csproj", "BandLookMVC/"]
 RUN dotnet restore "./BandLookMVC/BandLookMVC.csproj"
 COPY . .
 WORKDIR "/src/BandLookMVC"
