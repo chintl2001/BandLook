@@ -76,10 +76,10 @@ WHERE `id` = @id; ";
         using (var conn = _connectionFactory.CreateConnection())
         {
             var sql = @"
-            SELECT * FROM Account
-            WHERE id = @id";
+            SELECT * FROM account
+            WHERE id = @Id";
 
-            return await conn.QueryFirstAsync<Account>(sql, new { id = id });
+            return await conn.QueryFirstAsync<Account>(sql, new { Id = id });
         }
     }
 
@@ -88,7 +88,7 @@ WHERE `id` = @id; ";
         using (var conn = _connectionFactory.CreateConnection())
         {
             var sql = @"
-            SELECT * FROM Account";
+            SELECT * FROM account";
 
             return await conn.QueryAsync<ListUserResponse>(sql);
         }

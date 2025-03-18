@@ -32,28 +32,28 @@ public class AuthController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = _accountRepository.Login(request);
+            try
+            {
+                var user = _accountRepository.Login(request);
+                    HttpContext.Session.SetString("Username", user.Result.User_name);
+                    HttpContext.Session.SetInt32("Id", user.Result.Id);
+                    HttpContext.Session.SetString("Email", user.Result.Email);
+                    HttpContext.Session.SetInt32("RoleId", user.Result.Role_Id);
 
-            var tt = user.Result;
+                    if (user.Result.Role_Id == 3)
+                    {
+                        return RedirectToAction("Home", "Admin");
+                    }
+
+                    return RedirectToAction("Home", "Home");
+               
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+            }
             
-            if (user != null)
-            {
-                HttpContext.Session.SetString("Username", user.Result.User_name);
-                HttpContext.Session.SetInt32("Id", user.Result.Id);
-                HttpContext.Session.SetString("Email", user.Result.Email);
-                HttpContext.Session.SetInt32("RoleId", user.Result.Role_Id);
-
-                if (user.Result.Role_Id == 3)
-                {
-                    return RedirectToAction("Home", "Admin");
-                }
-                
-                return RedirectToAction("Home", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            }
         }
 
         return View(request);
