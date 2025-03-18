@@ -1,0 +1,11 @@
+services:
+  bandlookmvc:
+    image: ${DOCKER_REGISTRY-}bandlookmvc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "8080:80"
+    build:
+      context: .
+      dockerfile: BandLookMVC/Dockerfile
