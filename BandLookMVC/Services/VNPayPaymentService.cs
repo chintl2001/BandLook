@@ -24,7 +24,7 @@ public class VNPayPaymentService : IVNPayPaymentService
         pay.AddRequestData("vnp_Version", Environment.GetEnvironmentVariable("Vnpay__Version") ?? _configuration["Vnpay:Version"]);
         pay.AddRequestData("vnp_Command", Environment.GetEnvironmentVariable("Vnpay__Command") ?? _configuration["Vnpay:Command"]);
         pay.AddRequestData("vnp_TmnCode", Environment.GetEnvironmentVariable("Vnpay__TmnCode") ?? _configuration["Vnpay:TmnCode"]);
-        pay.AddRequestData("vnp_Amount", (int.Parse(amount) * 100).ToString());
+        pay.AddRequestData("vnp_Amount", (int.Parse(amount)).ToString());
         pay.AddRequestData("vnp_CreateDate", timeNow.ToString("yyyyMMddHHmmss"));
         pay.AddRequestData("vnp_CurrCode", Environment.GetEnvironmentVariable("Vnpay__CurrCode") ?? _configuration["Vnpay:CurrCode"]);
         pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
