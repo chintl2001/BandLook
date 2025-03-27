@@ -1,4 +1,6 @@
-﻿<main id="main">
+﻿@using System.Globalization
+
+<main id="main">
 
 <section class="breadcumb-section">
     <div class="tf-container">
@@ -116,7 +118,9 @@ document.querySelectorAll('#salary-list .option').forEach(item => {
                     </div>
                     <div class="flex-two">
                         <div class="price-box flex-three">
-                            <p> <span class="price-sale">@Model.Artists[i].Catxe VND</span></p>
+                            <p> <span class="price-sale">
+                                        @String.Format(new CultureInfo("vi-VN"), "{0:N0}", Model.Artists[i].Catxe) VND
+                                    </span></p>
                         </div>
                     </div>
                 </div>
